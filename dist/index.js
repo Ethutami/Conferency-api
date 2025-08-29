@@ -10,9 +10,6 @@ const categories_1 = __importDefault(require("./routers/categories"));
 const port = config_1.PORT || 8090;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)({
-    origin: config_1.FE_URL
-}));
 app.use((0, cors_1.default)());
 app.use("/api/categories", categories_1.default);
 app.get('/', (req, res) => {
