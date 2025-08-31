@@ -9,7 +9,22 @@ const app: Application = express();
 
 app.use(express.json());
 
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://conferency-git-development-utamis-projects.vercel.app'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS Not Allowed'));
+        }
+    },
+    credentials: true, // jika pakai cookies atau session
+}));
+
 
 app.use("/api/categories", Categories);
 
