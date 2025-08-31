@@ -18,7 +18,7 @@ const allowedOrigins = [
     'http://localhost:3000',
     'https://conferency-git-development-utamis-projects.vercel.app'
 ];
-app.use((0, cors_1.default)({
+const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -28,7 +28,11 @@ app.use((0, cors_1.default)({
         }
     },
     credentials: true
-}));
+};
+app.use((0, cors_1.default)(corsOptions));
+app.options('/api/categories', (0, cors_1.default)(corsOptions));
+app.use((0, cors_1.default)(corsOptions));
+app.options('/api/categories', (0, cors_1.default)(corsOptions));
 app.get('/', (req, res) => {
     res.status(200).json('Welcome to Conferency api');
 });
