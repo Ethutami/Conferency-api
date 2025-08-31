@@ -12,8 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCategoriesService = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
+const BASE_ICON_URL = 'https://mznyfinmwapfnwytaooe.supabase.co/storage/v1/object/public/';
 const getAllCategoriesService = () => __awaiter(void 0, void 0, void 0, function* () {
     const categories = yield prisma.categories.findMany();
-    return categories;
+    const categoriesFixedIconURL = categories.map((item) => (Object.assign(Object.assign({}, item), { icon: `${BASE_ICON_URL}${item.icon}` })));
+    return categoriesFixedIconURL;
 });
 exports.getAllCategoriesService = getAllCategoriesService;
