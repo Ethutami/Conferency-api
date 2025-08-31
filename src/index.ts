@@ -1,13 +1,17 @@
 import express, { Application, Request, Response, NextFunction } from "express";
-import cors from 'cors'
+import cors from 'cors';
 import { FE_URL, PORT } from "./config";
-
-import Categories from './routers/categories'
+import Categories from './routers/categories';
 
 const port = PORT || 8090;
 const app: Application = express();
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    console.log("Origin:", req.headers.origin); //cek origin request
+    next();
+});
 
 const allowedOrigins = [
     'http://localhost:3000',
@@ -22,15 +26,14 @@ app.use(cors({
             callback(new Error('CORS Not Allowed'));
         }
     },
-    credentials: true, // jika pakai cookies atau session
+    credentials: true
 }));
 
+app.get('/', (req: Request, res: Response) => {
+    res.status(200).json('Welcome to Conferency api');
+});
 
 app.use("/api/categories", Categories);
-
-app.get('/', (req: Request, res: Response) => {
-    res.status(200).json('Welcome to Conferency api')
-})
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({
