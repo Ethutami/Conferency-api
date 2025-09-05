@@ -10,11 +10,33 @@ const categories_1 = __importDefault(require("./routers/categories"));
 const port = config_1.PORT || 8090;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
-app.use("/api/categories", categories_1.default);
+app.use((req, res, next) => {
+    console.log("Origin:", req.headers.origin); //cek origin request
+    next();
+});
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://conferency-git-development-utamis-projects.vercel.app'
+];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('CORS Not Allowed'));
+        }
+    },
+    credentials: true
+};
+app.use((0, cors_1.default)(corsOptions));
+app.options('/api/categories', (0, cors_1.default)(corsOptions));
+app.use((0, cors_1.default)(corsOptions));
+app.options('/api/categories', (0, cors_1.default)(corsOptions));
 app.get('/', (req, res) => {
     res.status(200).json('Welcome to Conferency api');
 });
+app.use("/api/categories", categories_1.default);
 app.use((err, req, res, next) => {
     res.status(400).json({
         success: false,
