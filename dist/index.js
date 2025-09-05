@@ -31,8 +31,6 @@ const corsOptions = {
 };
 app.use((0, cors_1.default)(corsOptions));
 app.options('/api/categories', (0, cors_1.default)(corsOptions));
-app.use((0, cors_1.default)(corsOptions));
-app.options('/api/categories', (0, cors_1.default)(corsOptions));
 app.get('/', (req, res) => {
     res.status(200).json('Welcome to Conferency api');
 });

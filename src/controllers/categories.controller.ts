@@ -5,17 +5,10 @@ export async function GetAllCategoryController(req: Request, res: Response, next
     try {
         const categories = await getAllCategoriesService();
 
-        const supabaseStorageUrl = 'https://mznyfinmwapfnwytaooe.supabase.co/storage/v1/object/public/';
-
-        const categoriesWithIconUrl = categories.map(category => ({
-            ...category,
-            icon: supabaseStorageUrl + category.icon
-        }));
-
         res.status(200).send({
-            status: 'success',
+            status: 'Success',
             message: `Get all categories success`,
-            data: categoriesWithIconUrl,
+            data: categories,
         });
     } catch (err) {
         next(err);
