@@ -16,6 +16,7 @@ function GetAllCategoryController(req, res, next) {
         try {
             const categories = yield (0, categories_service_1.getAllCategoriesService)();
             res.status(200).send({
+                status: 'Success',
                 message: `Get all categories success`,
                 data: categories,
             });

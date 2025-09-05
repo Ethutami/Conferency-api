@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./config");
 const categories_1 = __importDefault(require("./routers/categories"));
+const organizator_1 = __importDefault(require("./routers/organizator"));
 const port = config_1.PORT || 8090;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -31,12 +32,11 @@ const corsOptions = {
 };
 app.use((0, cors_1.default)(corsOptions));
 app.options('/api/categories', (0, cors_1.default)(corsOptions));
-app.use((0, cors_1.default)(corsOptions));
-app.options('/api/categories', (0, cors_1.default)(corsOptions));
 app.get('/', (req, res) => {
     res.status(200).json('Welcome to Conferency api');
 });
 app.use("/api/categories", categories_1.default);
+app.use("/api/organizators", organizator_1.default);
 app.use((err, req, res, next) => {
     res.status(400).json({
         success: false,
