@@ -3,6 +3,7 @@ import cors from 'cors';
 import { FE_URL, PORT } from "./config";
 import Categories from './routers/categories';
 import Organizator from './routers/organizator'
+import Voucher from './routers/voucher'
 
 const port = PORT || 8090;
 const app: Application = express();
@@ -39,6 +40,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use("/api/categories", Categories);
 app.use("/api/organizators", Organizator);
+app.use('/api/vouchers', Voucher)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({

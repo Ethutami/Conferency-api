@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const voucher_controller_1 = require("../controllers/voucher.controller");
+const router = (0, express_1.Router)();
+router.get("/:organizatorId", voucher_controller_1.getAllVouchersController);
+router.post("/:organizatorId", voucher_controller_1.createVoucherController);
+router.put('/:code', voucher_controller_1.updateVoucherController);
+router.delete('/:code', voucher_controller_1.deleteVoucherController);
+exports.default = router;
