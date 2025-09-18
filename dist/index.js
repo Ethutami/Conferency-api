@@ -8,7 +8,8 @@ const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./config");
 const categories_1 = __importDefault(require("./routers/categories"));
 const organizator_1 = __importDefault(require("./routers/organizator"));
-const voucher_1 = __importDefault(require("./routers/voucher"));
+const vouchers_1 = __importDefault(require("./routers/vouchers"));
+const events_1 = __importDefault(require("./routers/events"));
 const port = config_1.PORT || 8090;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -38,7 +39,8 @@ app.get('/', (req, res) => {
 });
 app.use("/api/categories", categories_1.default);
 app.use("/api/organizators", organizator_1.default);
-app.use('/api/vouchers', voucher_1.default);
+app.use('/api/vouchers', vouchers_1.default);
+app.use('/api/events', events_1.default);
 app.use((err, req, res, next) => {
     res.status(400).json({
         success: false,
