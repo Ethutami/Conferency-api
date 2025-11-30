@@ -43,7 +43,7 @@ app.use('/api/vouchers', vouchers_1.default);
 app.use('/api/events', events_1.default);
 app.use((err, req, res, next) => {
     res.status(400).json({
-        success: false,
+        status: false,
         message: err.message,
     });
 });
