@@ -10,3 +10,26 @@ export const getAllCategoriesService = async () => {
 
   return categoriesFixedIconURL
 };
+
+export const getCategoriesIdService = async (id: string) => {
+  if (!id) throw new Error('Category ID is required');
+
+  const events = await prisma.events.findMany({
+    where: {
+      event_categories: {
+        some: {
+          category_id: Number(id),
+        },
+      },
+    },
+    include: {
+      event_categories: true,
+      event_vouchers: true,
+    },
+    orderBy: {
+      start_date: 'asc',
+    },
+  });
+  return events
+};
+
