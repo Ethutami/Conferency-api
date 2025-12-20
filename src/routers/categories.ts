@@ -4,6 +4,6 @@ import { GetAllCategoryController, GetCategoryIdController } from "../controller
 const router = Router();
 
 router.get("/", GetAllCategoryController);
-router.post("/:id", GetCategoryIdController)
+router.get("/:id", GetCategoryIdController)
 
 export default router;
