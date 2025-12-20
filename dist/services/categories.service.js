@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllCategoriesService = void 0;
+exports.getCategoriesIdService = exports.getAllCategoriesService = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const BASE_ICON_URL = 'https://mznyfinmwapfnwytaooe.supabase.co/storage/v1/object/public/';
@@ -19,3 +19,25 @@ const getAllCategoriesService = () => __awaiter(void 0, void 0, void 0, function
     return categoriesFixedIconURL;
 });
 exports.getAllCategoriesService = getAllCategoriesService;
+const getCategoriesIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!id)
+        throw new Error('Category ID is required');
+    const events = yield prisma.events.findMany({
+        where: {
+            event_categories: {
+                some: {
+                    category_id: Number(id),
+                },
+            },
+        },
+        include: {
+            event_categories: true,
+            event_vouchers: true,
+        },
+        orderBy: {
+            start_date: 'asc',
+        },
+    });
+    return events;
+});
+exports.getCategoriesIdService = getCategoriesIdService;

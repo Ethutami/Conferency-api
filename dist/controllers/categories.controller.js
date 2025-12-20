@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetAllCategoryController = GetAllCategoryController;
+exports.GetCategoryIdController = GetCategoryIdController;
 const categories_service_1 = require("../services/categories.service");
 function GetAllCategoryController(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -19,6 +20,22 @@ function GetAllCategoryController(req, res, next) {
                 status: 'Success',
                 message: `Get all categories success`,
                 data: categories,
+            });
+        }
+        catch (err) {
+            next(err);
+        }
+    });
+}
+function GetCategoryIdController(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { id } = req.params;
+        try {
+            const filter = yield (0, categories_service_1.getCategoriesIdService)(id);
+            res.status(200).send({
+                status: 'Success',
+                message: `Filter category success`,
+                data: filter,
             });
         }
         catch (err) {
